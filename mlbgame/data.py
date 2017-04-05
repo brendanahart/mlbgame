@@ -86,6 +86,45 @@ def get_overview(game_id):
             raise ValueError("Could not find a game with that id.")
     return data
 
+def get_batters(year, month, day, batter_id):
+    """Return the complete batter stats with matching id."""
+    # add zeros if less than 10
+    monthstr = str(month).zfill(2)
+    daystr = str(day).zfill(2)
+
+    # file
+    filename = "gameday-data/year_%s/month_%s/day_%s/batters/%s_1.xml" % (year, monthstr, daystr, batter_id)
+    file = os.path.join(os.path.dirname(__file__), filename)
+    # check if file exits
+    if os.path.isfile(file):
+        data = file
+    else:
+        # get data if file does not exist
+        try:
+            data = urlopen("http://gd2.mlb.com/components/game/mlb/year_%s/month_%s/day_%s/batters/%s_1.xml" % (year, monthstr, daystr, batter_id))
+        except HTTPError:
+            raise ValueError("Could not find a batter with that id.")
+    return data
+
+def get_pitchers(year, month, day, pitcher_id):
+    """Return the complete pitcher stats with matching id."""
+    # add zeros if less than 10
+    monthstr = str(month).zfill(2)
+    daystr = str(day).zfill(2)
+    # file
+    filename = "gameday-data/year_%s/month_%s/day_%s/batters/%s_1.xml" % (year, monthstr, daystr, pitcher_id)
+    file = os.path.join(os.path.dirname(__file__), filename)
+    # check if file exits
+    if os.path.isfile(file):
+        data = file
+    else:
+        # get data if file does not exist
+        try:
+            data = urlopen("http://gd2.mlb.com/components/game/mlb/year_%s/month_%s/day_%s/pitchers/%s_1.xml" % (year, monthstr, daystr, pitcher_id))
+        except HTTPError:
+            raise ValueError("Could not find a pitcher with that id.")
+    return data
+
 def get_properties():
     """Return the current mlb properties file"""
     try:
