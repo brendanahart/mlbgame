@@ -7,6 +7,31 @@ import mlbgame.object
 
 import lxml.etree as etree
 
+def batter_stats(year, month, day, batter_id):
+    """Return an object with the stats for an individual batter"""
+    data = mlbgame.data.get_batters(year, month, day, batter_id)
+    parsed = etree.parse(data)
+    root = parsed.getroot()
+
+    stats = {}
+    for i in root.attrib:
+        stats[i] = root.attrib[i]
+
+    return stats
+
+def pitcher_stats(year, month, day, pitcher_id):
+    """Return an object with the stats for an individual pitcher"""
+    """Return an object with the stats for an individual batter"""
+    data = mlbgame.data.get_pitchers(year, month, day, pitcher_id)
+    parsed = etree.parse(data)
+    root = parsed.getroot()
+
+    stats = {}
+    for i in root.attrib:
+        stats[i] = root.attrib[i]
+
+    return stats
+
 def player_stats(game_id):
     """Return dictionary of individual stats of a game with matching id."""
     # get data from data module

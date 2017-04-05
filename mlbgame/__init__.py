@@ -236,6 +236,14 @@ def player_stats(game_id):
             output[y].append(obj)
     return output
 
+def batter_stats(year, month, day, batter_id):
+    data = mlbgame.stats.batter_stats(year, month, day, batter_id)
+    return data
+
+def pitcher_stats(year, month, day, pitcher_id):
+    data = mlbgame.stats.pitcher_stats(year, month, day, pitcher_id)
+    return data
+
 def team_stats(game_id):
     """Return dictionary of team stats for game matching the game id."""
     # get data
